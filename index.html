@@ -237,30 +237,11 @@
             const origem = document.getElementById('origem').value;
             const destino = document.getElementById('destino').value;
             const valorInput = document.getElementById('valor').value;
-            
-            // Validar entradas
-            let valido = true;
-            
-            if (!origem) {
-                mostrarErro('origem', 'Por favor, selecione a origem');
-                valido = false;
-            }
-            
-            if (!destino) {
-                mostrarErro('destino', 'Por favor, selecione o destino');
-                valido = false;
-            }
-            
-            if (!valorInput) {
-                mostrarErro('valor', 'Por favor, insira o valor da mercadoria');
-                valido = false;
-            }
-            
-            const valorMercadoria = parseFloat(valorInput);
-            if (isNaN(valorMercadoria) || valorMercadoria <= 0) {
-                mostrarErro('valor', 'Valor inválido. Use números positivos e ponto decimal (ex: 1500.50)');
-                valido = false;
-            }            if (!valido) return;
+
+const valorConvertido = valorInput.replace(/\./g, '').replace(',', '.');
+
+const valorMercadoria = parseFloat(valorConvertido);
+
             
             // Verificar se existe porcentagem para a combinação origem/destino
             if (!porcentagens[origem] || !porcentagens[origem][destino]) {
