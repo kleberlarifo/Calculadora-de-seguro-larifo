@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Seguro para Transporte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .calculator {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f7ef;
+            border-radius: 4px;
+            display: none;
+        }
+        .details {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+        }
+        .error {
+            color: red;
+            margin-top: 5px;
+            font-size: 14px;
+            display: none;
+        }
+
+.logo-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .logo-container img {
+            height: 300px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="logo-container">
+        <img src="Logo Larifo.png" alt="Logotipo da Empresa">
+    </div>
+
+    <h1>Calculadora de Seguro para Transporte Nacional RCTR-C E DC</h1>
+    <div class="calculator">
+        <div class="form-group">
+            <label for="origem">Origem:</label>
+            <select id="origem" required>
+                <option value="">Selecione a origem</option>
+                <option value="Acre">Acre</option>
+                <option value="Alagoas">Alagoas</option>
+                <option value="Amapá">Amapá</option>
+                <option value="Amazonas">Amazonas</option>
+                <option value="Bahia">Bahia</option>
+                <option value="Ceará">Ceará</option>
+                <option value="Distrito Federal">Distrito Federal</option>
+                <option value="Espirito Santo">Espírito Santo</option>
+                <option value="Goiás">Goiás</option>
+                <option value="Maranhao">Maranhão</option>
+                <option value="Mato Grosso">Mato Grosso</option>
+                <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                <option value="Minas Gerais">Minas Gerais</option>
+                <option value="Pará">Pará</option>
+                <option value="Paraíba">Paraíba</option>
+                <option value="Paraná">Paraná</option>
+                <option value="Pernambuco">Pernambuco</option>
+                <option value="Piaui">Piauí</option>
+                <option value="Rio de Janeiro">Rio de Janeiro</option>
+                <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                <option value="Rondônia">Rondônia</option>
+                <option value="Roraima">Roraima</option>
+                <option value="Santa Catarina">Santa Catarina</option>
+                <option value="Sao Paulo">São Paulo</option>
+                <option value="Sergipe">Sergipe</option>
+                <option value="Tocantins">Tocantins</option>
+            </select>
+            <div id="origemError" class="error">Por favor, selecione a origem</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="destino">Destino:</label>
+            <select id="destino" required>
+                <option value="">Selecione o destino</option>
+                <option value="AC">Acre (AC)</option>
+                <option value="AL">Alagoas (AL)</option>
+                <option value="AP">Amapá (AP)</option>
+                <option value="AM">Amazonas (AM)</option>
+                <option value="BA">Bahia (BA)</option>
+                <option value="CE">Ceará (CE)</option>
+                <option value="DF">Distrito Federal (DF)</option>
+                <option value="ES">Espírito Santo (ES)</option>
+                <option value="GO">Goiás (GO)</option>
+                <option value="MA">Maranhão (MA)</option>
+                <option value="MT">Mato Grosso (MT)</option>
+                <option value="MS">Mato Grosso do Sul (MS)</option>
+                <option value="MG">Minas Gerais (MG)</option>
+                <option value="PA">Pará (PA)</option>
+                <option value="PB">Paraíba (PB)</option>
+                <option value="PR">Paraná (PR)</option>
+                <option value="PE">Pernambuco (PE)</option>
+                <option value="PI">Piauí (PI)</option>
+                <option value="RJ">Rio de Janeiro (RJ)</option>
+                <option value="RN">Rio Grande do Norte (RN)</option>
+                <option value="RS">Rio Grande do Sul (RS)</option>
+                <option value="RO">Rondônia (RO)</option>
+                <option value="RR">Roraima (RR)</option>
+                <option value="SC">Santa Catarina (SC)</option>
+                <option value="SP">São Paulo (SP)</option>
+                <option value="SE">Sergipe (SE)</option>
+                <option value="TO">Tocantins (TO)</option>
+            </select>
+            <div id="destinoError" class="error">Por favor, selecione o destino</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="valor">Valor da Mercadoria (R$):</label>
+            <input type="text" id="valor" min="0" step="0.01" required>
+            <div id="valorError" class="error">Por favor, insira um valor válido</div>
+        </div>
+        
+        <button id="calcularBtn">Calcular Seguro</button>
+        
+        <div id="resultado" class="result">
+            <h3>Resultado do Cálculo</h3>
+            <p>Valor total do seguro: <strong id="totalSeguro"></strong></p>
+            
+            <div class="details">
+                <p>Detalhes do cálculo:</p>
+                <ul>
+                    <li>Porcentagem origem/destino: <span id="porcentagem"></span>%</li>
+                    <li>Etapa 1: <span id="etapa1"></span></li>
+                    <li>Etapa 2: <span id="etapa2"></span></li>
+                    <li>Etapa 3: <span id="etapa3"></span></li>
+                    <li>Etapa 4: <span id="etapa4"></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados das porcentagens de origem/destino
+        const porcentagens = {
+            "Acre": {"AC": 0.04, "AL": 0.3, "AP": 0.26, "AM": 0.09, "BA": 0.3, "CE": 0.28, "DF": 0.18, "ES": 0.26, "GO": 0.18, "MA": 0.28, "MT": 0.12, "MS": 0.16, "MG": 0.22, "PA": 0.24, "PB": 0.3, "PR": 0.24, "PE": 0.3, "PI": 0.26, "RJ": 0.26, "RN": 0.3, "RS": 0.28, "RO": 0.05, "RR": 0.14, "SC": 0.26, "SP": 0.24, "SE": 0.3, "TO": 0.23},
+            "Alagoas": {"AC": 0.3, "AL": 0.04, "AP": 0.16, "AM": 0.3, "BA": 0.06, "CE": 0.07, "DF": 0.14, "ES": 0.11, "GO": 0.14, "MA": 0.1, "MT": 0.2, "MS": 0.22, "MG": 0.11, "PA": 0.14, "PB": 0.05, "PR": 0.18, "PE": 0.05, "PI": 0.08, "RJ": 0.14, "RN": 0.05, "RS": 0.22, "RO": 0.26, "RR": 0.32, "SC": 0.2, "SP": 0.16, "SE": 0.05, "TO": 0.12},
+            "Amapá": {"AC": 0.26, "AL": 0.16, "AP": 0.08, "AM": 0.26, "BA": 0.16, "CE": 0.11, "DF": 0.14, "ES": 0.22, "GO": 0.14, "MA": 0.09, "MT": 0.2, "MS": 0.26, "MG": 0.2, "PA": 0.09, "PB": 0.16, "PR": 0.22, "PE": 0.16, "PI": 0.09, "RJ": 0.22, "RN": 0.16, "RS": 0.28, "RO": 0.22, "RR": 0.3, "SC": 0.24, "SP": 0.2, "SE": 0.16, "TO": 0.13},
+            "Amazonas": {"AC": 0.09, "AL": 0.3, "AP": 0.26, "AM": 0.08, "BA": 0.3, "CE": 0.28, "DF": 0.2, "ES": 0.28, "GO": 0.2, "MA": 0.28, "MT": 0.18, "MS": 0.2, "MG": 0.24, "PA": 0.24, "PB": 0.3, "PR": 0.26, "PE": 0.3, "PI": 0.24, "RJ": 0.28, "RN": 0.3, "RS": 0.3, "RO": 0.09, "RR": 0.09, "SC": 0.28, "SP": 0.26, "SE": 0.32, "TO": 0.2},
+            "Bahia": {"AC": 0.3, "AL": 0.06, "AP": 0.16, "AM": 0.3, "BA": 0.05, "CE": 0.08, "DF": 0.14, "ES": 0.08, "GO": 0.14, "MA": 0.1, "MT": 0.16, "MS": 0.18, "MG": 0.09, "PA": 0.12, "PB": 0.07, "PR": 0.14, "PE": 0.06, "PI": 0.08, "RJ": 0.1, "RN": 0.08, "RS": 0.18, "RO": 0.26, "RR": 0.32, "SC": 0.16, "SP": 0.12, "SE": 0.06, "TO": 0.11},
+            "Ceará": {"AC": 0.28, "AL": 0.07, "AP": 0.11, "AM": 0.28, "BA": 0.08, "CE": 0.04, "DF": 0.18, "ES": 0.14, "GO": 0.18, "MA": 0.07, "MT": 0.24, "MS": 0.24, "MG": 0.16, "PA": 0.1, "PB": 0.05, "PR": 0.22, "PE": 0.06, "PI": 0.07, "RJ": 0.18, "RN": 0.05, "RS": 0.26, "RO": 0.26, "RR": 0.32, "SC": 0.24, "SP": 0.2, "SE": 0.08, "TO": 0.13},
+            "Distrito Federal": {"AC": 0.18, "AL": 0.14, "AP": 0.14, "AM": 0.2, "BA": 0.14, "CE": 0.18, "DF": 0.03, "ES": 0.09, "GO": 0.05, "MA": 0.16, "MT": 0.07, "MS": 0.08, "MG": 0.06, "PA": 0.12, "PB": 0.16, "PR": 0.09, "PE": 0.16, "PI": 0.18, "RJ": 0.09, "RN": 0.18, "RS": 0.11, "RO": 0.14, "RR": 0.26, "SC": 0.09, "SP": 0.06, "SE": 0.12, "TO": 0.07},
+            "Espirito Santo": {"AC": 0.26, "AL": 0.11, "AP": 0.22, "AM": 0.28, "BA": 0.08, "CE": 0.14, "DF": 0.09, "ES": 0.03, "GO": 0.09, "MA": 0.16, "MT": 0.14, "MS": 0.12, "MG": 0.05, "PA": 0.2, "PB": 0.12, "PR": 0.09, "PE": 0.12, "PI": 0.14, "RJ": 0.04, "RN": 0.14, "RS": 0.12, "RO": 0.22, "RR": 0.32, "SC": 0.1, "SP": 0.07, "SE": 0.09, "TO": 0.14},
+            "Goiás": {"AC": 0.18, "AL": 0.14, "AP": 0.14, "AM": 0.2, "BA": 0.14, "CE": 0.18, "DF": 0.05, "ES": 0.09, "GO": 0.05, "MA": 0.16, "MT": 0.07, "MS": 0.08, "MG": 0.06, "PA": 0.12, "PB": 0.16, "PR": 0.09, "PE": 0.16, "PI": 0.18, "RJ": 0.09, "RN": 0.18, "RS": 0.11, "RO": 0.14, "RR": 0.26, "SC": 0.09, "SP": 0.06, "SE": 0.12, "TO": 0.08},
+            "Maranhao": {"AC": 0.28, "AL": 0.1, "AP": 0.09, "AM": 0.28, "BA": 0.1, "CE": 0.07, "DF": 0.16, "ES": 0.16, "GO": 0.16, "MA": 0.06, "MT": 0.2, "MS": 0.24, "MG": 0.16, "PA": 0.09, "PB": 0.11, "PR": 0.24, "PE": 0.1, "PI": 0.07, "RJ": 0.2, "RN": 0.1, "RS": 0.28, "RO": 0.24, "RR": 0.32, "SC": 0.26, "SP": 0.2, "SE": 0.11, "TO": 0.11},
+            "Mato Grosso": {"AC": 0.12, "AL": 0.2, "AP": 0.2, "AM": 0.18, "BA": 0.16, "CE": 0.24, "DF": 0.07, "ES": 0.14, "GO": 0.07, "MA": 0.2, "MT": 0.06, "MS": 0.07, "MG": 0.1, "PA": 0.14, "PB": 0.22, "PR": 0.11, "PE": 0.22, "PI": 0.18, "RJ": 0.14, "RN": 0.24, "RS": 0.16, "RO": 0.09, "RR": 0.24, "SC": 0.12, "SP": 0.11, "SE": 0.18, "TO": 0.1},
+            "Mato Grosso do Sul": {"AC": 0.16, "AL": 0.22, "AP": 0.26, "AM": 0.2, "BA": 0.18, "CE": 0.24, "DF": 0.08, "ES": 0.12, "GO": 0.08, "MA": 0.24, "MT": 0.07, "MS": 0.05, "MG": 0.09, "PA": 0.18, "PB": 0.24, "PR": 0.07, "PE": 0.24, "PI": 0.2, "RJ": 0.09, "RN": 0.26, "RS": 0.11, "RO": 0.14, "RR": 0.26, "SC": 0.09, "SP": 0.07, "SE": 0.2, "TO": 0.14},
+            "Minas Gerais": {"AC": 0.22, "AL": 0.11, "AP": 0.2, "AM": 0.24, "BA": 0.09, "CE": 0.16, "DF": 0.06, "ES": 0.05, "GO": 0.06, "MA": 0.16, "MT": 0.1, "MS": 0.09, "MG": 0.04, "PA": 0.18, "PB": 0.14, "PR": 0.07, "PE": 0.14, "PI": 0.14, "RJ": 0.05, "RN": 0.14, "RS": 0.1, "RO": 0.2, "RR": 0.3, "SC": 0.08, "SP": 0.05, "SE": 0.1, "TO": 0.13},
+            "Pará": {"AC": 0.24, "AL": 0.14, "AP": 0.09, "AM": 0.24, "BA": 0.12, "CE": 0.1, "DF": 0.12, "ES": 0.2, "GO": 0.12, "MA": 0.09, "MT": 0.14, "MS": 0.18, "MG": 0.18, "PA": 0.08, "PB": 0.14, "PR": 0.2, "PE": 0.12, "PI": 0.09, "RJ": 0.2, "RN": 0.12, "RS": 0.26, "RO": 0.2, "RR": 0.28, "SC": 0.22, "SP": 0.18, "SE": 0.14, "TO": 0.12},
+            "Paraíba": {"AC": 0.3, "AL": 0.05, "AP": 0.16, "AM": 0.3, "BA": 0.07, "CE": 0.05, "DF": 0.16, "ES": 0.12, "GO": 0.16, "MA": 0.11, "MT": 0.22, "MS": 0.24, "MG": 0.14, "PA": 0.14, "PB": 0.04, "PR": 0.2, "PE": 0.05, "PI": 0.08, "RJ": 0.16, "RN": 0.05, "RS": 0.24, "RO": 0.28, "RR": 0.32, "SC": 0.22, "SP": 0.18, "SE": 0.05, "TO": 0.13},
+            "Paraná": {"AC": 0.24, "AL": 0.18, "AP": 0.22, "AM": 0.26, "BA": 0.14, "CE": 0.22, "DF": 0.09, "ES": 0.09, "GO": 0.09, "MA": 0.24, "MT": 0.11, "MS": 0.07, "MG": 0.07, "PA": 0.2, "PB": 0.2, "PR": 0.03, "PE": 0.2, "PI": 0.2, "RJ": 0.06, "RN": 0.22, "RS": 0.06, "RO": 0.2, "RR": 0.3, "SC": 0.04, "SP": 0.04, "SE": 0.16, "TO": 0.18},
+            "Pernambuco": {"AC": 0.3, "AL": 0.05, "AP": 0.16, "AM": 0.3, "BA": 0.06, "CE": 0.06, "DF": 0.16, "ES": 0.12, "GO": 0.16, "MA": 0.1, "MT": 0.22, "MS": 0.24, "MG": 0.14, "PA": 0.12, "PB": 0.05, "PR": 0.2, "PE": 0.04, "PI": 0.08, "RJ": 0.16, "RN": 0.05, "RS": 0.24, "RO": 0.26, "RR": 0.32, "SC": 0.24, "SP": 0.16, "SE": 0.05, "TO": 0.12},
+            "Piaui": {"AC": 0.26, "AL": 0.08, "AP": 0.09, "AM": 0.24, "BA": 0.08, "CE": 0.07, "DF": 0.18, "ES": 0.14, "GO": 0.18, "MA": 0.07, "MT": 0.18, "MS": 0.2, "MG": 0.14, "PA": 0.09, "PB": 0.08, "PR": 0.2, "PE": 0.08, "PI": 0.06, "RJ": 0.16, "RN": 0.08, "RS": 0.24, "RO": 0.22, "RR": 0.3, "SC": 0.22, "SP": 0.18, "SE": 0.09, "TO": 0.1},
+            "Rio de Janeiro": {"AC": 0.26, "AL": 0.14, "AP": 0.22, "AM": 0.28, "BA": 0.1, "CE": 0.18, "DF": 0.09, "ES": 0.04, "GO": 0.09, "MA": 0.2, "MT": 0.14, "MS": 0.09, "MG": 0.05, "PA": 0.2, "PB": 0.16, "PR": 0.06, "PE": 0.16, "PI": 0.16, "RJ": 0.02, "RN": 0.18, "RS": 0.1, "RO": 0.22, "RR": 0.32, "SC": 0.08, "SP": 0.04, "SE": 0.12, "TO": 0.14},
+            "Rio Grande do Norte": {"AC": 0.3, "AL": 0.05, "AP": 0.16, "AM": 0.3, "BA": 0.08, "CE": 0.05, "DF": 0.18, "ES": 0.14, "GO": 0.18, "MA": 0.1, "MT": 0.24, "MS": 0.26, "MG": 0.14, "PA": 0.12, "PB": 0.05, "PR": 0.22, "PE": 0.05, "PI": 0.08, "RJ": 0.18, "RN": 0.04, "RS": 0.26, "RO": 0.28, "RR": 0.32, "SC": 0.24, "SP": 0.18, "SE": 0.06, "TO": 0.13},
+            "Rio Grande do Sul": {"AC": 0.28, "AL": 0.22, "AP": 0.28, "AM": 0.3, "BA": 0.18, "CE": 0.26, "DF": 0.11, "ES": 0.12, "GO": 0.11, "MA": 0.28, "MT": 0.16, "MS": 0.11, "MG": 0.1, "PA": 0.26, "PB": 0.24, "PR": 0.06, "PE": 0.24, "PI": 0.24, "RJ": 0.1, "RN": 0.26, "RS": 0.03, "RO": 0.24, "RR": 0.32, "SC": 0.04, "SP": 0.07, "SE": 0.2, "TO": 0.2},
+            "Rondônia": {"AC": 0.05, "AL": 0.26, "AP": 0.22, "AM": 0.09, "BA": 0.26, "CE": 0.26, "DF": 0.14, "ES": 0.22, "GO": 0.14, "MA": 0.24, "MT": 0.09, "MS": 0.14, "MG": 0.2, "PA": 0.2, "PB": 0.28, "PR": 0.2, "PE": 0.26, "PI": 0.22, "RJ": 0.22, "RN": 0.28, "RS": 0.24, "RO": 0.04, "RR": 0.1, "SC": 0.22, "SP": 0.2, "SE": 0.28, "TO": 0.2},
+            "Roraima": {"AC": 0.14, "AL": 0.32, "AP": 0.3, "AM": 0.09, "BA": 0.32, "CE": 0.32, "DF": 0.26, "ES": 0.32, "GO": 0.26, "MA": 0.32, "MT": 0.24, "MS": 0.26, "MG": 0.3, "PA": 0.28, "PB": 0.32, "PR": 0.3, "PE": 0.32, "PI": 0.3, "RJ": 0.32, "RN": 0.32, "RS": 0.32, "RO": 0.1, "RR": 0.08, "SC": 0.32, "SP": 0.3, "SE": 0.32, "TO": 0.24},
+            "Santa Catarina": {"AC": 0.26, "AL": 0.2, "AP": 0.24, "AM": 0.28, "BA": 0.16, "CE": 0.24, "DF": 0.09, "ES": 0.1, "GO": 0.09, "MA": 0.26, "MT": 0.12, "MS": 0.09, "MG": 0.08, "PA": 0.22, "PB": 0.22, "PR": 0.04, "PE": 0.24, "PI": 0.22, "RJ": 0.08, "RN": 0.24, "RS": 0.04, "RO": 0.22, "RR": 0.32, "SC": 0.03, "SP": 0.05, "SE": 0.18, "TO": 0.18},
+            "Sao Paulo": {"AC": 0.24, "AL": 0.16, "AP": 0.2, "AM": 0.26, "BA": 0.12, "CE": 0.2, "DF": 0.06, "ES": 0.07, "GO": 0.06, "MA": 0.2, "MT": 0.11, "MS": 0.07, "MG": 0.05, "PA": 0.18, "PB": 0.18, "PR": 0.04, "PE": 0.16, "PI": 0.18, "RJ": 0.04, "RN": 0.18, "RS": 0.07, "RO": 0.2, "RR": 0.3, "SC": 0.05, "SP": 0.02, "SE": 0.14, "TO": 0.14},
+            "Sergipe": {"AC": 0.3, "AL": 0.05, "AP": 0.16, "AM": 0.32, "BA": 0.06, "CE": 0.08, "DF": 0.12, "ES": 0.09, "GO": 0.12, "MA": 0.11, "MT": 0.18, "MS": 0.2, "MG": 0.1, "PA": 0.14, "PB": 0.05, "PR": 0.16, "PE": 0.05, "PI": 0.09, "RJ": 0.12, "RN": 0.06, "RS": 0.2, "RO": 0.28, "RR": 0.32, "SC": 0.18, "SP": 0.14, "SE": 0.04, "TO": 0.11},
+            "Tocantins": {"AC": 0.23, "AL": 0.12, "AP": 0.13, "AM": 0.2, "BA": 0.11, "CE": 0.13, "DF": 0.07, "ES": 0.14, "GO": 0.08, "MA": 0.11, "MT": 0.1, "MS": 0.14, "MG": 0.13, "PA": 0.12, "PB": 0.13, "PR": 0.18, "PE": 0.12, "PI": 0.1, "RJ": 0.14, "RN": 0.13, "RS": 0.2, "RO": 0.2, "RR": 0.24, "SC": 0.18, "SP": 0.14, "SE": 0.11, "TO": 0.06}
+        };
+
+        function mostrarErro(elemento, mensagem) {
+            const erroElement = document.getElementById(elemento + 'Error');
+            erroElement.textContent = mensagem;
+            erroElement.style.display = 'block';
+        }
+
+        function limparErro(elemento) {
+            document.getElementById(elemento + 'Error').style.display = 'none';
+        }
+
+        function calcularSeguro() {
+            // Limpar erros anteriores
+            limparErro('origem');
+            limparErro('destino');
+            limparErro('valor');
+            
+            // Obter valores dos inputs
+            const origem = document.getElementById('origem').value;
+            const destino = document.getElementById('destino').value;
+            const valorInput = document.getElementById('valor').value;
+            
+            // Validar entradas
+            let valido = true;
+            
+            if (!origem) {
+                mostrarErro('origem', 'Por favor, selecione a origem');
+                valido = false;
+            }
+            
+            if (!destino) {
+                mostrarErro('destino', 'Por favor, selecione o destino');
+                valido = false;
+            }
+            
+            if (!valorInput) {
+                mostrarErro('valor', 'Por favor, insira o valor da mercadoria');
+                valido = false;
+            }
+            
+            const valorMercadoria = parseFloat(valorInput);
+            if (isNaN(valorMercadoria) || valorMercadoria <= 0) {
+                mostrarErro('valor', 'Valor inválido. Use números positivos e ponto decimal (ex: 1500.50)');
+                valido = false;
+            }            if (!valido) return;
+            
+            // Verificar se existe porcentagem para a combinação origem/destino
+            if (!porcentagens[origem] || !porcentagens[origem][destino]) {
+                mostrarErro('destino', 'Combinação origem/destino não encontrada');
+                return;
+            }
+            
+            
+            
+            // Obter a porcentagem
+            const porcentagem = porcentagens[origem][destino];
+            
+            // Calcular o valor do seguro (etapas de cálculo)
+            // Etapa um: (Porcentagem da Origem x Destino dividido por 100) multiplicando por 55
+            const etapa1 = (porcentagem / 100) * 55;
+            
+            // Etapa dois: (valor da mercadoria informado pelo usuário multiplicado pelo resultado do cálculo da Etapa um) dividido por 100
+            const etapa2 = (valorMercadoria * etapa1) / 100;
+            
+            // Etapa tres: (valor da mercadoria informado anteriormente pelo usuário) multiplicado por 0,03%
+            const etapa3 = valorMercadoria * (0.03 / 100);
+            
+            // Etapa quatro: (soma do resultado da etapa dois com o resultado da etapa tres) multiplicando por (7,38%)
+            const etapa4 = (etapa2 + etapa3) * (7.38 / 100);
+            
+            // Etapa cinco: é o valor total do seguro, consiste na soma das etapas quatro, tres e dois
+            const valorSeguro = etapa4 + etapa3 + etapa2;
+            
+            // Exibir resultados
+            document.getElementById('porcentagem').textContent = (porcentagem * 100).toFixed(2);
+            document.getElementById('etapa1').textContent = `(${(porcentagem * 100).toFixed(2)}% / 100) × 55 = ${etapa1.toFixed(4)}`;
+            document.getElementById('etapa2').textContent = `(R$ ${valorMercadoria.toFixed(2)} × ${etapa1.toFixed(4)}) / 100 = R$ ${etapa2.toFixed(2)}`;
+            document.getElementById('etapa3').textContent = `R$ ${valorMercadoria.toFixed(2)} × 0.03% = R$ ${etapa3.toFixed(2)}`;
+            document.getElementById('etapa4').textContent = `(R$ ${etapa2.toFixed(2)} + R$ ${etapa3.toFixed(2)}) × 7.38% = R$ ${etapa4.toFixed(2)}`;
+            document.getElementById('totalSeguro').textContent = `R$ ${valorSeguro.toFixed(2)}`;
+            
+           
+            
+            // Mostrar o resultado
+            document.getElementById('resultado').style.display = 'block';
+        }
+
+        // Adicionar evento de clique ao botão calcular
+        document.getElementById('calcularBtn').addEventListener('click', calcularSeguro);
+
+        // Adicionar validação em tempo real
+        document.getElementById('origem').addEventListener('change', function() {
+            limparErro('origem');
+        });
+        
+        document.getElementById('destino').addEventListener('change', function() {
+            limparErro('destino');
+        });
+        
+        document.getElementById('valor').addEventListener('input', function() {
+            limparErro('valor');
+        });
+		
+		// Função para formatar número no formato pt-BR conforme digita
+function formatarMoeda(input) {
+    // Remove tudo que não for número ou vírgula
+    let valor = input.value.replace(/\D/g, '');
+
+    // Converte para número
+    valor = (parseInt(valor) / 100).toFixed(2) + '';
+
+    // Substitui ponto decimal por vírgula
+    valor = valor.replace('.', ',');
+
+    // Coloca ponto como separador de milhar
+    valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    input.value = valor;
+}
+
+const inputValor = document.getElementById('valor');
+inputValor.addEventListener('input', function () {
+    // Chama a função de formatação
+    formatarMoeda(this);
+});
+
+		
+		
+    </script>
+</body>
+</html>
